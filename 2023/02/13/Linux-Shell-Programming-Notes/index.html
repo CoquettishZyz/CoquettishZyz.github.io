@@ -22,28 +22,54 @@
     var CONFIG = {"hostname":"lazypig.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="不要乱看">
-<meta property="og:url" content="http://lazypig.com/index.html">
+  <meta name="description" content="Shell脚本开发注意 1$() 和 &#96;&#96; 效果是一样的，在括号中执行命令，且拿到命令的执行结果  Shell数值计算运算符号，Linux用于计算的命令   用于数值计算的命令shell的一些基础命令，只支持整数的运算，小数的计算需要如bc这样的命令 双小括号(()) 特殊符号运算12345++ 加一-- 减一++a 先计算加一，然后赋值给aa++ 先对a操作，再加一   脚本开发，复杂的对用户输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Shell Programming Notes">
+<meta property="og:url" content="http://lazypig.com/2023/02/13/Linux-Shell-Programming-Notes/index.html">
 <meta property="og:site_name" content="不要乱看">
+<meta property="og:description" content="Shell脚本开发注意 1$() 和 &#96;&#96; 效果是一样的，在括号中执行命令，且拿到命令的执行结果  Shell数值计算运算符号，Linux用于计算的命令   用于数值计算的命令shell的一些基础命令，只支持整数的运算，小数的计算需要如bc这样的命令 双小括号(()) 特殊符号运算12345++ 加一-- 减一++a 先计算加一，然后赋值给aa++ 先对a操作，再加一   脚本开发，复杂的对用户输">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lazypig.com/img/image-20230215144600915.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230215144701841.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230215144858133.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230215152657929.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230215153021123.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230215153151912.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230216171536349.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230216171803579.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230216173311565.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230216173355127.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230216174429220.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230216175101778.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230216231939933.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230216235336694.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230216235655398.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230216235730290.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230217164632985.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230220191901583.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230220191813933.png">
+<meta property="og:image" content="http://lazypig.com/img/image-20230220194310244.png">
+<meta property="article:published_time" content="2023-02-13T14:25:04.000Z">
+<meta property="article:modified_time" content="2023-02-20T11:55:24.751Z">
 <meta property="article:author" content="LAZY PIG">
+<meta property="article:tag" content="Linux Shell">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lazypig.com/img/image-20230215144600915.png">
 
-<link rel="canonical" href="http://lazypig.com/">
+<link rel="canonical" href="http://lazypig.com/2023/02/13/Linux-Shell-Programming-Notes/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>不要乱看</title>
+  <title>Linux Shell Programming Notes | 不要乱看</title>
   
 
 
@@ -181,229 +207,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lazypig.com/2023/03/14/LLVM-learning-notes1-The-Architecture-of-Open-Source-Applications-LLVM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="LAZY PIG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不要乱看">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/14/LLVM-learning-notes1-The-Architecture-of-Open-Source-Applications-LLVM/" class="post-title-link" itemprop="url">LLVM learning notes1: The Architecture of Open Source Applications: LLVM</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-14 21:37:04" itemprop="dateCreated datePublished" datetime="2023-03-14T21:37:04+08:00">2023-03-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-27 23:55:51" itemprop="dateModified" datetime="2023-03-27T23:55:51+08:00">2023-03-27</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/03/14/LLVM-learning-notes1-The-Architecture-of-Open-Source-Applications-LLVM/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/03/14/LLVM-learning-notes1-The-Architecture-of-Open-Source-Applications-LLVM/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="http://www.aosabook.org/en/llvm.html">Resource</a></p>
-<h1 id="Classical-Complier-Design"><a href="#Classical-Complier-Design" class="headerlink" title="Classical Complier Design"></a>Classical Complier Design</h1><p><img src="/../img/image-20230314215732944.png" alt="image-20230314215732944"></p>
-<p><strong>The front end</strong> parses source code, checking it for errors, and builds a language-specific Abstract Syntax Tree (AST) to represent the input code.</p>
-<p><strong>The optimizer</strong>  is responsible for doing a broad variety of transformations to try to improve the code’s running time. It is usually more or less independent of language and target.</p>
-<p><strong>The back end</strong> (also known as the code generator) then maps the code onto the target instruction set. In addition to making <em>correct</em> code, it is responsible for generating <em>good</em> code that takes advantage of unusual features of the supported architecture.</p>
-<h1 id="LLVM’s-Code-Representation-LLVM-IR"><a href="#LLVM’s-Code-Representation-LLVM-IR" class="headerlink" title="LLVM’s Code Representation: LLVM IR"></a>LLVM’s Code Representation: LLVM IR</h1><p>The most important aspect of its design is the LLVM Intermediate Representation (IR), which is the form it uses to represent code in the compiler. LLVM IR is designed to host mid-level analyses and transformations that you find in the optimizer section of a compiler. It was designed with many specific goals in mind, including supporting lightweight runtime optimizations, cross-function&#x2F;interprocedural optimizations, whole program analysis, and aggressive restructuring transformations, etc. The most important aspect of it, though, is that it is itself defined as a first class language with well-defined semantics.</p>
-<h1 id="Writing-an-LLVM-IR-Optimization"><a href="#Writing-an-LLVM-IR-Optimization" class="headerlink" title="Writing an LLVM IR Optimization"></a>Writing an LLVM IR Optimization</h1><p>That said, most optimizations follow a simple three-part structure:</p>
-<ul>
-<li>Look for a pattern to be transformed.</li>
-<li>Verify that the transformation is safe&#x2F;correct for the matched instance.</li>
-<li>Do the transformation, updating the code.</li>
-</ul>
-<p>The caller of this function (<code>SimplifyInstruction</code>) is a dispatcher that does a switch on the instruction opcode, dispatching to the per-opcode helper functions. It is called from various optimizations. A simple driver looks like this:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (BasicBlock::iterator I = BB-&gt;<span class="built_in">begin</span>(), E = BB-&gt;<span class="built_in">end</span>(); I != E; ++I)</span><br><span class="line">  <span class="keyword">if</span> (Value *V = <span class="built_in">SimplifyInstruction</span>(I))</span><br><span class="line">    I-&gt;<span class="built_in">replaceAllUsesWith</span>(V);</span><br></pre></td></tr></table></figure>
-
-<p>This code simply loops over each instruction in a block, checking to see if any of them simplify. If so (because <code>SimplifyInstruction</code> returns non-null), it uses the <code>replaceAllUsesWith</code> method to update anything in the code using the simplifiable operation with the simpler form.</p>
-<h1 id="LLVM’s-Implementation-of-Three-Phase-Design"><a href="#LLVM’s-Implementation-of-Three-Phase-Design" class="headerlink" title="LLVM’s Implementation of Three-Phase Design"></a>LLVM’s Implementation of Three-Phase Design</h1><h2 id="LLVM-IR-is-a-Complete-Code-Representation"><a href="#LLVM-IR-is-a-Complete-Code-Representation" class="headerlink" title="LLVM IR is a Complete Code Representation"></a>LLVM IR is a Complete Code Representation</h2><p>LLVM IR is both well specified and the <em>only</em> interface to the optimizer. This property means that all you need to know to write a front end for LLVM is what LLVM IR is, how it works, and the invariants it expects. Since LLVM IR has a first-class textual form, it is both possible and reasonable to build a front end that outputs LLVM IR as text, then uses Unix pipes to send it through the optimizer sequence and code generator of your choice.</p>
-<h2 id="LLVM-is-a-Collection-of-Libraries"><a href="#LLVM-is-a-Collection-of-Libraries" class="headerlink" title="LLVM is a Collection of Libraries"></a>LLVM is a Collection of Libraries</h2><p>LLVM optimizer provides dozens of different passes, each of which are written in a similar style. These passes are compiled into one or more <code>.o</code> files, which are then built into a series of archive libraries (<code>.a</code> files on Unix systems). </p>
-<p><img src="/../img/image-20230326172542361.png" alt="image-20230326172542361"></p>
-<p>In our example above, since there is a reference to PassA and PassB, they will get linked in. Since PassB uses PassD to do some analysis, PassD gets linked in. However, since PassC (and dozens of other optimizations) aren’t used, its code isn’t linked into the image processing application.</p>
-<p>This is where the power of the library-based design of LLVM comes into play. This straightforward design approach allows LLVM to provide a vast amount of capability, some of which may only be useful to specific audiences, without punishing clients of the libraries that just want to do simple things. In contrast, traditional compiler optimizers are built as a tightly interconnected mass of code, which is much more difficult to subset, reason about, and come up to speed on. With LLVM you can understand individual optimizers without knowing how the whole system fits together.</p>
-<p>This library-based design is also the reason why so many people misunderstand what LLVM is all about: the LLVM libraries have many capabilities, but they don’t actually <em>do</em> anything by themselves. It is up to the designer of the client of the libraries (e.g., the Clang C compiler) to decide how to put the pieces to best use. This careful layering, factoring, and focus on subset-ability is also why the LLVM optimizer can be used for such a broad range of different applications in different contexts. Also, just because LLVM provides JIT compilation capabilities, it doesn’t mean that every client uses it.</p>
-<h1 id="Design-of-the-Retargetable-LLVM-Code-Generator"><a href="#Design-of-the-Retargetable-LLVM-Code-Generator" class="headerlink" title="Design of the Retargetable LLVM Code Generator"></a>Design of the Retargetable LLVM Code Generator</h1><p>Similar to the approach in the optimizer, LLVM’s code generator splits the code generation problem into individual passes—instruction selection, register allocation, scheduling, code layout optimization, and assembly emission—and provides many builtin passes that are run by default.</p>
-<h2 id="LLVM-Target-Description-Files"><a href="#LLVM-Target-Description-Files" class="headerlink" title="LLVM Target Description Files"></a>LLVM Target Description Files</h2><p>The “mix and match” approach allows target authors to choose what makes sense for their architecture and permits a large amount of code reuse across different targets. This brings up another challenge: each shared component needs to be able to reason about target specific properties in a generic way. For example, a shared register allocator needs to know the register file of each target and the constraints that exist between instructions and their register operands. LLVM’s solution to this is for each target to provide a target description in a declarative domain-specific language (a set of <code>.td</code> files) processed by the tblgen tool. The (simplified) build process for the x86 target is shown in <a target="_blank" rel="noopener" href="http://www.aosabook.org/en/llvm.html#fig.llvm.x86">Figure 11.5</a>.</p>
-<p><img src="/../img/image-20230326180400432.png" alt="image-20230326180400432"></p>
-<h1 id="Interesting-Capabilities-Provided-by-a-Modular-Design"><a href="#Interesting-Capabilities-Provided-by-a-Modular-Design" class="headerlink" title="Interesting Capabilities Provided by a Modular Design"></a>Interesting Capabilities Provided by a Modular Design</h1><h2 id="Choosing-When-and-Where-Each-Phase-Runs"><a href="#Choosing-When-and-Where-Each-Phase-Runs" class="headerlink" title="Choosing When and Where Each Phase Runs"></a>Choosing When and Where Each Phase Runs</h2><p>As mentioned earlier, LLVM IR can be efficiently (de)serialized to&#x2F;from a binary format known as LLVM bitcode. Since LLVM IR is self-contained, and serialization is a lossless process, we can do part of compilation, save our progress to disk, then continue work at some point in the future. This feature provides a number of interesting capabilities including support for link-time and install-time optimization, both of which delay code generation from “compile time”.</p>
-<p>Link-Time Optimization (LTO) addresses the problem where the compiler traditionally only sees one translation unit (e.g., a <code>.c</code> file with all its headers) at a time and therefore cannot do optimizations (like inlining) across file boundaries. LLVM compilers like Clang support this with the <code>-flto</code> or <code>-O4</code> command line option. This option instructs the compiler to emit LLVM bitcode to the <code>.o</code>file instead of writing out a native object file, and delays code generation to link time, shown in <a target="_blank" rel="noopener" href="http://www.aosabook.org/en/llvm.html#fig.llvm.lto">Figure 11.6</a>.</p>
-<p><img src="/../img/image-20230326200108501.png" alt="image-20230326200108501"></p>
-<h2 id="Unit-Testing-the-Optimizer"><a href="#Unit-Testing-the-Optimizer" class="headerlink" title="Unit Testing the Optimizer"></a>Unit Testing the Optimizer</h2><p>By using the textual form of LLVM IR with the modular optimizer, the LLVM test suite has highly focused regression tests that can load LLVM IR from disk, run it through exactly one optimization pass, and verify the expected behavior. Beyond crashing, a more complicated behavioral test wants to verify that an optimization is actually performed. Here is a simple test case that checks to see that the constant propagation pass is working with add instructions:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">; RUN: opt &lt; %s -constprop -S | FileCheck %s</span><br><span class="line">define i32 @test() &#123;</span><br><span class="line">  %A = add i32 4, 5</span><br><span class="line">  ret i32 %A</span><br><span class="line">  ; CHECK: @test()</span><br><span class="line">  ; CHECK: ret i32 9</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>The <code>RUN</code> line specifies the command to execute: in this case, the <code>opt</code> and <code>FileCheck</code> command line tools. The <code>opt</code> program is a simple wrapper around the LLVM pass manager, which links in all the standard passes (and can dynamically load plugins containing other passes) and exposes them through to the command line. The <code>FileCheck</code> tool verifies that its standard input matches a series of <code>CHECK</code> directives. In this case, this simple test is verifying that the <code>constprop</code> pass is folding the <code>add</code> of 4 and 5 into 9.</p>
-<p>While this might seem like a really trivial example, this is very difficult to test by writing .c files: front ends often do constant folding as they parse, so it is very difficult and fragile to write code that makes its way downstream to a constant folding optimization pass. Because we can load LLVM IR as text and send it through the specific optimization pass we’re interested in, then dump out the result as another text file, it is really straightforward to test exactly what we want, both for regression and feature tests.</p>
-<h2 id="Automatic-Test-Case-Reduction-with-BugPoint"><a href="#Automatic-Test-Case-Reduction-with-BugPoint" class="headerlink" title="Automatic Test Case Reduction with BugPoint"></a>Automatic Test Case Reduction with BugPoint</h2><p>The LLVM BugPoint tool<a target="_blank" rel="noopener" href="http://www.aosabook.org/en/llvm.html#footnote-7">7</a> uses the IR serialization and modular design of LLVM to automate this process. For example, given an input <code>.ll</code> or <code>.bc</code> file along with a list of optimization passes that causes an optimizer crash, BugPoint reduces the input to a small test case and determines which optimizer is at fault. It then outputs the reduced test case and the <code>opt</code> command used to reproduce the failure. It finds this by using techniques similar to “delta debugging” to reduce the input and the optimizer pass list. Because it knows the structure of LLVM IR, BugPoint does not waste time generating invalid IR to input to the optimizer, unlike the standard “delta” command line tool.</p>
-<p>In the more complex case of a miscompilation, you can specify the input, code generator information, the command line to pass to the executable, and a reference output. BugPoint will first determine if the problem is due to an optimizer or a code generator, and will then repeatedly partition the test case into two pieces: one that is sent into the “known good” component and one that is sent into the “known buggy” component. By iteratively moving more and more code out of the partition that is sent into the known buggy code generator, it reduces the test case.</p>
-<h1 id="Retrospective-and-Future-Directions"><a href="#Retrospective-and-Future-Directions" class="headerlink" title="Retrospective and Future Directions"></a>Retrospective and Future Directions</h1>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lazypig.com/2023/02/15/Clearblue%E9%85%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="LAZY PIG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不要乱看">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/15/Clearblue%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Clearblue配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-02-15 19:21:40" itemprop="dateCreated datePublished" datetime="2023-02-15T19:21:40+08:00">2023-02-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-02-16 19:41:54" itemprop="dateModified" datetime="2023-02-16T19:41:54+08:00">2023-02-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/02/15/Clearblue%E9%85%8D%E7%BD%AE/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/02/15/Clearblue%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Clearblue-配置"><a href="#Clearblue-配置" class="headerlink" title="Clearblue 配置"></a>Clearblue 配置</h1><h2 id="Download-resources"><a href="#Download-resources" class="headerlink" title="Download resources"></a>Download resources</h2><p><a target="_blank" rel="noopener" href="https://releases.llvm.org/download.html">https://releases.llvm.org/download.html</a></p>
-<p><img src="/../img/image-20230216141408026.png" alt="image-20230216141408026"></p>
-<h2 id="Move-resources-to-HOME"><a href="#Move-resources-to-HOME" class="headerlink" title="Move resources to $HOME"></a>Move resources to $HOME</h2><p>Use FileZila(Windows)</p>
-<h2 id="Build-LLVM-3-6-2"><a href="#Build-LLVM-3-6-2" class="headerlink" title="Build LLVM(3.6.2)"></a>Build LLVM(3.6.2)</h2><ul>
-<li>put clang src codes into llvm-3.6.2.src&#x2F;tools (clang and llvm version are all 3.6.2)</li>
-<li>There is a code irregularity in one place(&#x2F;home&#x2F;zhuyuzhang&#x2F;llvm-3.6.2.src&#x2F;include&#x2F;llvm&#x2F;IR&#x2F;Valuemap.h:104:31) use cmpulsory conversion to bool</li>
-<li>mkdir build &amp;&amp; cd build [&#x2F;home&#x2F;zhuyuzhang&#x2F;llvm-3.6.2.src&#x2F;build]</li>
-<li>cmake .. -DCMAKE_BUILD_TYPE&#x3D;Debug -DLLVM_ENABLE_RTTI&#x3D;ON</li>
-<li>make -j10</li>
-</ul>
-<h2 id="Build-Clearblue"><a href="#Build-Clearblue" class="headerlink" title="Build Clearblue"></a>Build Clearblue</h2><ul>
-<li>cd clearblue</li>
-<li>git submodule update –init –recursive</li>
-<li>mkdir build &amp;&amp; cd build</li>
-<li>cmake ..&#x2F; -DLLVM_BUILD_PATH&#x3D;&#x2F;home&#x2F;zhuyuzhang&#x2F;llvm-3.6.2.src&#x2F;build -DLLVM_BUILD_MAIN_SRC_DIR&#x3D;&#x2F;home&#x2F;zhuyuzhang&#x2F;llvm-3.6.2.src</li>
-<li>make -j120</li>
-</ul>
-<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><ul>
-<li>scl enable devtoolset-8 bash(update gcc)</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -419,10 +226,9 @@
       <meta itemprop="name" content="不要乱看">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/13/Linux-Shell-Programming-Notes/" class="post-title-link" itemprop="url">Linux Shell Programming Notes</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Linux Shell Programming Notes
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -451,6 +257,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
   <span class="post-meta-item">
     
@@ -475,7 +288,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Shell脚本开发"><a href="#Shell脚本开发" class="headerlink" title="Shell脚本开发"></a>Shell脚本开发</h1><p><strong>注意</strong></p>
+        <h1 id="Shell脚本开发"><a href="#Shell脚本开发" class="headerlink" title="Shell脚本开发"></a>Shell脚本开发</h1><p><strong>注意</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">() 和 `` 效果是一样的，在括号中执行命令，且拿到命令的执行结果</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="Shell数值计算"><a href="#Shell数值计算" class="headerlink" title="Shell数值计算"></a>Shell数值计算</h1><p><strong>运算符号，Linux用于计算的命令</strong></p>
@@ -684,229 +497,43 @@
 <p>fi</p>
 </blockquote>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Linux-Shell/" rel="tag"># Linux Shell</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lazypig.com/2023/02/11/Linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="LAZY PIG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不要乱看">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/11/Linux/" class="post-title-link" itemprop="url">Linux基础 Notes</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-02-11 17:21:37 / 修改时间：17:59:22" itemprop="dateCreated datePublished" datetime="2023-02-11T17:21:37+08:00">2023-02-11</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/02/11/Linux/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/02/11/Linux/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><p>学习自<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1JY4y1v7wY/?p=1&vd_source=b13ef5c189bf6bbcf843aa22a48c4954">01 IT与互联网发展_哔哩哔哩_bilibili</a></p>
-<h2 id="Linux远程连接"><a href="#Linux远程连接" class="headerlink" title="Linux远程连接"></a>Linux远程连接</h2><p>windows用户需要单独安装xshell远程连接工具，或者直接使用ssh命令，ssh命令就是提供一个远程安全的加密远程连接</p>
-<p>远程连接的步骤</p>
-<blockquote>
-<ol>
-<li><p>确保linux拥有正确配置的ip地址<br> 通过ip addr show查看linux的网络ip信息 ip：192.168.88.128&#x2F;24</p>
-</li>
-<li><p>安装xshell软件，进行远程连接<br> 首次安装xshell，且运行xshell软件后，会提示你建立一个会话，这个会话指的就是远程操作linux机器的终端，效果是在windows上面远程连接linux系统</p>
-</li>
-<li><p>使用ssh命令进行远程连接<br> &#x2F;# 解释<br> &#x2F;# ssh 是linux远程登陆的命令<br> &#x2F;# root 用户<br> &#x2F;# ssh 登陆的用户名@主机ip地址<br> ssh <a href="mailto:&#114;&#x6f;&#111;&#116;&#x40;&#49;&#57;&#50;&#46;&#x31;&#x36;&#56;&#x2e;&#x38;&#x38;&#46;&#49;&#x32;&#x38;">&#114;&#x6f;&#111;&#116;&#x40;&#49;&#57;&#50;&#46;&#x31;&#x36;&#56;&#x2e;&#x38;&#x38;&#46;&#49;&#x32;&#x38;</a> &#x2F;#这个就是远程连接的命令，xshell其实也是敲打的整条命令</p>
-</li>
-</ol>
-</blockquote>
-<hr>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/02/11/Linux/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lazypig.com/2023/02/11/Shell%E5%8F%98%E9%87%8F%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="LAZY PIG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不要乱看">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/11/Shell%E5%8F%98%E9%87%8F%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/" class="post-title-link" itemprop="url">Linux Shell Basic Knowledge Notes</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-02-11 17:21:37" itemprop="dateCreated datePublished" datetime="2023-02-11T17:21:37+08:00">2023-02-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-02-13 22:23:17" itemprop="dateModified" datetime="2023-02-13T22:23:17+08:00">2023-02-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/02/11/Shell%E5%8F%98%E9%87%8F%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/02/11/Shell%E5%8F%98%E9%87%8F%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Shell变量核心基础与进阶"><a href="#Shell变量核心基础与进阶" class="headerlink" title="Shell变量核心基础与进阶"></a>Shell变量核心基础与进阶</h1><h2 id="什么是shell"><a href="#什么是shell" class="headerlink" title="什么是shell"></a>什么是shell</h2><p><strong>shell的作用</strong></p>
-<ul>
-<li>解释执行用户输入的命令或者程序</li>
-<li>用户输入一条命令，shell就解释一条</li>
-<li>键盘输入命令，Linux给予响应的方式，称之为交互式</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/02/11/Shell%E5%8F%98%E9%87%8F%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/11/Linux/" rel="prev" title="Linux基础 Notes">
+      <i class="fa fa-chevron-left"></i> Linux基础 Notes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/02/15/Clearblue%E9%85%8D%E7%BD%AE/" rel="next" title="Clearblue配置">
+      Clearblue配置 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -953,6 +580,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">Shell脚本开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">Shell数值计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E4%BA%8E%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">用于数值计算的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E5%B0%8F%E6%8B%AC%E5%8F%B7"><span class="nav-number">2.1.1.</span> <span class="nav-text">双小括号(())</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7%E8%BF%90%E7%AE%97"><span class="nav-number">2.1.2.</span> <span class="nav-text">特殊符号运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let%E5%91%BD%E4%BB%A4%E8%BF%90%E7%AE%97"><span class="nav-number">2.1.3.</span> <span class="nav-text">let命令运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%B5%8Bnginx%E6%9C%8D%E5%8A%A1%E6%98%AF%E5%90%A6%E8%BF%90%E8%A1%8C%E7%9A%84%E8%84%9A%E6%9C%AC"><span class="nav-number">2.1.4.</span> <span class="nav-text">检测nginx服务是否运行的脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#expr%E5%91%BD%E4%BB%A4"><span class="nav-number">2.1.5.</span> <span class="nav-text">expr命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#expr%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">expr模式匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#expr%E5%91%BD%E4%BB%A4%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E5%90%8D%E5%90%8E%E7%BC%80%E6%98%AF%E5%90%A6%E5%90%88%E6%B3%95"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">expr命令判断文件名后缀是否合法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bc%E5%91%BD%E4%BB%A4"><span class="nav-number">2.1.6.</span> <span class="nav-text">bc命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bc%E6%A1%88%E4%BE%8B"><span class="nav-number">2.1.6.1.</span> <span class="nav-text">bc案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk%E8%AE%A1%E7%AE%97"><span class="nav-number">2.1.7.</span> <span class="nav-text">awk计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%8B%AC%E5%8F%B7%E8%AE%A1%E7%AE%97"><span class="nav-number">2.1.8.</span> <span class="nav-text">中括号计算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="nav-number">3.</span> <span class="nav-text">Shell条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell%E6%9D%A1%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">3.1.</span> <span class="nav-text">Shell条件测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#test%E6%9D%A1%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">3.1.1.</span> <span class="nav-text">test条件测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#test%E7%9A%84%E8%AF%AD%E6%B3%95%E5%8F%82%E6%95%B0%E5%A4%A7%E5%85%A8"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">test的语法参数大全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#test%E5%91%BD%E4%BB%A4%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">test命令实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%8B%AC%E5%8F%B7%E6%9D%A1%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">3.1.2.</span> <span class="nav-text">中括号条件测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E4%B8%AD%E6%8B%AC%E5%8F%B7"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">双中括号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E6%B5%8B%E8%AF%95"><span class="nav-number">3.1.3.</span> <span class="nav-text">变量测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83%E6%B5%8B%E8%AF%95"><span class="nav-number">3.1.4.</span> <span class="nav-text">字符串比较测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E6%AF%94%E8%BE%83%E6%B5%8B%E8%AF%95"><span class="nav-number">3.1.5.</span> <span class="nav-text">数值比较测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E4%B8%AD%E6%8B%AC%E5%8F%B7-1"><span class="nav-number">3.1.5.1.</span> <span class="nav-text">双中括号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD%E7%AC%A6%E5%8F%B7"><span class="nav-number">3.1.6.</span> <span class="nav-text">逻辑判断符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if%E8%AF%AD%E5%8F%A5%E5%BC%80%E5%8F%91"><span class="nav-number">3.1.7.</span> <span class="nav-text">if语句开发</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

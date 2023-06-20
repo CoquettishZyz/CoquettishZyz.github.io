@@ -1,6 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Linux Shell Programming Notes</title>
+    <url>/2023/02/13/Linux-Shell-Programming-Notes/</url>
+    <content><![CDATA[<h1 id="Shell脚本开发"><a href="#Shell脚本开发" class="headerlink" title="Shell脚本开发"></a>Shell脚本开发</h1><p><strong>注意</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">() 和 `` 效果是一样的，在括号中执行命令，且拿到命令的执行结果</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Shell数值计算"><a href="#Shell数值计算" class="headerlink" title="Shell数值计算"></a>Shell数值计算</h1><p><strong>运算符号，Linux用于计算的命令</strong></p>
+<p><img src="/../img/image-20230215144600915.png" alt="image-20230215144600915"></p>
+<p><img src="/../img/image-20230215144701841.png" alt="image-20230215144701841"></p>
+<h2 id="用于数值计算的命令"><a href="#用于数值计算的命令" class="headerlink" title="用于数值计算的命令"></a>用于数值计算的命令</h2><p>shell的一些基础命令，只支持整数的运算，小数的计算需要如bc这样的命令</p>
+<h3 id="双小括号"><a href="#双小括号" class="headerlink" title="双小括号(())"></a>双小括号(())</h3><p><img src="/../img/image-20230215144858133.png" alt="image-20230215144858133"></p>
+<h3 id="特殊符号运算"><a href="#特殊符号运算" class="headerlink" title="特殊符号运算"></a>特殊符号运算</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">++ 加一</span><br><span class="line">-- 减一</span><br><span class="line"></span><br><span class="line">++a 先计算加一，然后赋值给a</span><br><span class="line">a++ 先对a操作，再加一 </span><br></pre></td></tr></table></figure>
+
+<p><strong>脚本开发，复杂的对用户输入判断的脚本开发</strong></p>
+<ol>
+<li>想好脚本的功能作用，以及需求</li>
+<li>转换为Shell代码</li>
+</ol>
+<blockquote>
+<p>开发一个接受用户输入的数字，且对运算符号判断，最终得出结果的一个计算脚本</p>
+</blockquote>
+<p><img src="/../img/image-20230215152657929.png" alt="image-20230215152657929"></p>
+<p><img src="/../img/image-20230215153021123.png" alt="image-20230215153021123"></p>
+<p><img src="/../img/image-20230215153151912.png" alt="image-20230215153151912"></p>
+<p>set nu 命令查看代码行数</p>
+<p>如果不想写的很复杂，就可以直接传参进去</p>
+<p><img src="/../img/image-20230216171536349.png" alt="image-20230216171536349"></p>
+<h3 id="let命令运算"><a href="#let命令运算" class="headerlink" title="let命令运算"></a>let命令运算</h3><p>let命令的执行效率等同于双小括号</p>
+<p>但是双小括号效率更高</p>
+<p><img src="/../img/image-20230216171803579.png" alt="image-20230216171803579"></p>
+<h3 id="检测nginx服务是否运行的脚本"><a href="#检测nginx服务是否运行的脚本" class="headerlink" title="检测nginx服务是否运行的脚本"></a>检测nginx服务是否运行的脚本</h3><p>脚本开发的思路</p>
+<ol>
+<li>先想好脚本的功能，作用</li>
+<li>先写伪代码</li>
+</ol>
+<blockquote>
+<ol>
+<li><p>先定义变量，用于存储些变化的值，后期用于脚本维护</p>
+<p>Nginx_version&#x3D;1.7</p>
+</li>
+<li><p>先安装服务</p>
+<p>Yum install nginx-${nginx-version}</p>
+</li>
+<li><p>启动服务</p>
+<p>systemctl start nginx</p>
+</li>
+<li><p>修改配置文件</p>
+</li>
+<li><p>重启服务</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="/../img/image-20230216173311565.png" alt="image-20230216173311565"></p>
+<p><img src="/../img/image-20230216173355127.png" alt="image-20230216173355127"></p>
+<h3 id="expr命令"><a href="#expr命令" class="headerlink" title="expr命令"></a>expr命令</h3><p>简单的计算器执行命令</p>
+<p><em>但是存在缺陷，expr利用空格来确定参数，但是针对于一些元字符就无法辨别了，比如*</em></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">expr 5 + 3</span><br><span class="line">expr 5 \* 3</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">输出长度</span></span><br><span class="line">expr length 1234567</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">逻辑判断</span></span><br><span class="line">expr 5\&gt;6 # 输出0</span><br></pre></td></tr></table></figure>
+
+<h4 id="expr模式匹配"><a href="#expr模式匹配" class="headerlink" title="expr模式匹配"></a>expr模式匹配</h4><blockquote>
+<p>expr命令也支持模式匹配功能</p>
+<p>2个特殊符号</p>
+<p>：冒号，计算字符串的字符数量，Yuchao 6个字符</p>
+<p>.* 任意的字符串重复0次或者多次 (指定匹配模式)</p>
+<p>语法</p>
+<p>expr 字符串 “:” “.*”</p>
+</blockquote>
+<p><img src="/../img/image-20230216174429220.png" alt="image-20230216174429220"></p>
+<h4 id="expr命令判断文件名后缀是否合法"><a href="#expr命令判断文件名后缀是否合法" class="headerlink" title="expr命令判断文件名后缀是否合法"></a>expr命令判断文件名后缀是否合法</h4><p>执行脚本，传入一个文件名，然后判断该文件，是否是jpg图片文件</p>
+<blockquote>
+<p>思路：</p>
+<p>先明白expr命令的模式匹配功能，字符串匹配上了就统计其长度，匹配不上即返回0</p>
+</blockquote>
+<p><img src="/../img/image-20230216175101778.png" alt="image-20230216175101778"></p>
+<h3 id="bc命令"><a href="#bc命令" class="headerlink" title="bc命令"></a>bc命令</h3><blockquote>
+<p>bc计算器</p>
+<p>awk支持数值计算</p>
+<p>中括号运算</p>
+</blockquote>
+<p>bc命令当作计算器来用的，命令行的计算器</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">交互式的操作，小数的计算</span></span><br><span class="line">直接输入操作</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">与管道符结合计算结果</span></span><br><span class="line">echo &quot;4.2*4&quot; | bc</span><br><span class="line">result=`echo $num*4|bc`</span><br><span class="line">echo $result</span><br></pre></td></tr></table></figure>
+
+<h4 id="bc案例"><a href="#bc案例" class="headerlink" title="bc案例"></a>bc案例</h4><p>计算出1~100的总和</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">方案一</span></span><br><span class="line">echo &#123;1..100&#125; | tr &quot; &quot; &quot;+&quot; | bc</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">方案二</span></span><br><span class="line">seq -s &quot;+&quot; 100 | bc</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">用双括号计算</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">((`seq -s &quot;+&quot; <span class="number">100</span>`))</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">expr</span>命令计算，<span class="built_in">expr</span>命令注意是接收多个参数来计算的</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">接受以空格分割的多个参数 xargs</span></span><br><span class="line">seq -s &quot; + &quot; 100 | xargs expr</span><br></pre></td></tr></table></figure>
+
+<h3 id="awk计算"><a href="#awk计算" class="headerlink" title="awk计算"></a>awk计算</h3><p>awk也支持小数计算</p>
+<p>awk支持if条件判断，数组等等</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;3.2 2.2&quot; | awk &#x27;&#123;print ($1+4*$2)&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="中括号计算"><a href="#中括号计算" class="headerlink" title="中括号计算"></a>中括号计算</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">[表达式]</span></span><br><span class="line">res=$[num*4]</span><br></pre></td></tr></table></figure>
+
+<h1 id="Shell条件判断"><a href="#Shell条件判断" class="headerlink" title="Shell条件判断"></a>Shell条件判断</h1><p><strong>read命令</strong></p>
+<p>读取用户参数</p>
+<blockquote>
+<p>-t timeout</p>
+<p>-p 提示信息</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">read -t 15 -p &quot;请输入你的名字，年龄&quot; your_name your_age</span><br></pre></td></tr></table></figure>
+
+<h2 id="Shell条件测试"><a href="#Shell条件测试" class="headerlink" title="Shell条件测试"></a>Shell条件测试</h2><blockquote>
+<p>得出真假的概念</p>
+<p>shell提供条件测试的语法</p>
+<p>test命令</p>
+<p>[ ] 中括号</p>
+</blockquote>
+<p><img src="/../img/image-20230216231939933.png" alt="image-20230216231939933"></p>
+<h3 id="test条件测试"><a href="#test条件测试" class="headerlink" title="test条件测试"></a>test条件测试</h3><p>test命令评估一个表达式，他的结果是真还是假，如果条件为真那么命令的执行状态码就是0，否则就不是0，通过<code>$?</code>取值</p>
+<blockquote>
+<p>test命令的参数</p>
+<p>-e 判断该文件是否存在（文件，目录）存在就是为真就是0</p>
+</blockquote>
+<h4 id="test的语法参数大全"><a href="#test的语法参数大全" class="headerlink" title="test的语法参数大全"></a>test的语法参数大全</h4><p><img src="/../img/image-20230216235336694.png" alt="image-20230216235336694"></p>
+<p><img src="/../img/image-20230216235655398.png" alt="image-20230216235655398"></p>
+<p><img src="/../img/image-20230216235730290.png" alt="image-20230216235730290"></p>
+<h4 id="test命令实践"><a href="#test命令实践" class="headerlink" title="test命令实践"></a>test命令实践</h4><p>-e 判断该文件是否存在（文件，目录）存在就是为真就是0</p>
+<p>shell对于真假判断的逻辑，提供<code>&amp;&amp;,||</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">test</span> 命令</span></span><br><span class="line">test 测试参数 要测试的对象 对结果进行判断执行的逻辑动作</span><br><span class="line">-f 判断文件是否是普通文件类型（要求是存在的情况下）</span><br><span class="line">-d 判断是否是目录类型</span><br><span class="line">-z 判定字符串是否为0 若为空字符串，则为true</span><br><span class="line">-n 判定字符串是否为非0 若为空字符串，子额为false</span><br></pre></td></tr></table></figure>
+
+<h3 id="中括号条件测试"><a href="#中括号条件测试" class="headerlink" title="中括号条件测试"></a>中括号条件测试</h3><p>脚本中经常进行</p>
+<p>条件测试，用的最多都是中括号[ ]</p>
+<p>test和[ ]作用是一样的</p>
+<p>注意：中括号中间前后必须有空格</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">注意！！！</span><br><span class="line">在条件测试中要使用变量必须添加双引号</span><br><span class="line">[ -m &quot;$filename&quot; ]</span><br><span class="line">具体用法和test一样</span><br></pre></td></tr></table></figure>
+
+<h4 id="双中括号"><a href="#双中括号" class="headerlink" title="双中括号"></a>双中括号</h4><blockquote>
+<p>[[ 条件表达式 ]]</p>
+<p>验证文件是否有权限，写入权限</p>
+<p>注意：不要用root，切换普通用户</p>
+<p>其实用法和[] 一样</p>
+</blockquote>
+<h3 id="变量测试"><a href="#变量测试" class="headerlink" title="变量测试"></a>变量测试</h3><p>把字符串信息，写入到变量中</p>
+<blockquote>
+<p>对变量测试，必须添加双引号</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file1=&quot;yuzhang.jpg&quot;</span><br><span class="line">[ -f &quot;$file1&quot; ]&amp;&amp;echo &quot;success&quot; || echo &quot;failure&quot;</span><br></pre></td></tr></table></figure>
+
+<p>记得参考人家写的脚本</p>
+<p><code>ls /etc/init.d/</code></p>
+<h3 id="字符串比较测试"><a href="#字符串比较测试" class="headerlink" title="字符串比较测试"></a>字符串比较测试</h3><p><img src="/../img/image-20230217164632985.png" alt="image-20230217164632985"></p>
+<p>比较两个字符串变量的值是否相等，不等这样的情况</p>
+<blockquote>
+<p>&#x3D; 判断是否相等</p>
+<p>!&#x3D; 判断是不等的</p>
+<p>! 取结果的反义</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">su_kill() &#123;</span><br><span class="line">	if test &quot;$USER&quot; = &quot;$user&quot;; then</span><br><span class="line">		kill $* &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">	else</span><br><span class="line">		su - &amp;user -s /bin/sh -c &quot;kill $*&quot; &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">	fi</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<ul>
+<li>对于<strong>字符串变量</strong>的比较一定要记住给变量加<strong>双引号</strong></li>
+<li>使用等于号判断值是否相等，左右两边也必须有<strong>空格</strong> # [ “yuzhang” &#x3D; “yuzhang” ] &amp;&amp; echo ok || echo no</li>
+</ul>
+<p>取反</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[ -f &quot;糖果超甜组合.txt&quot; ] &amp;&amp; echo ok || echo no</span><br><span class="line">[ ! -f &quot;糖果超甜组合.txt&quot; ] &amp;&amp; echo ok || echo no</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-f是希望文件是存在的，且是普通文本类型，条件符合，就为真</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">！ -f 表示对这个结果取反，【当前该文件是不存在的，因此-f结果是假的，！-f就变成真的了】</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="数值比较测试"><a href="#数值比较测试" class="headerlink" title="数值比较测试"></a>数值比较测试</h3><p><img src="/../img/image-20230220191901583.png" alt="image-20230220191901583"></p>
+<ol>
+<li><p>在中括号中，以及test中数值测试的用法</p>
+<blockquote>
+<p>在中括号中，也使用数学比较符号，但是请添加转义符号</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[ 1 \&gt; 2 ] &amp;&amp; echo yes || echo no</span><br><span class="line">[ 1 -gt 2 ] &amp;&amp; echo yes || echo no # 大于</span><br><span class="line">[ 1 -ge 2 ] &amp;&amp; echo yes || echo no # 大于等于</span><br><span class="line">n1=98;n2=99</span><br><span class="line">test &quot;$n1&quot; -eq &quot;$n2&quot; &amp;&amp; echo yes || echo no</span><br><span class="line">test &quot;$n1&quot; != &quot;$n2&quot; &amp;&amp; echo yes || echo no # 也支持数学符号</span><br></pre></td></tr></table></figure>
+
+<p>在test和[]语法中，支持<code>-eq</code>此类写法，以及支持<code>&gt; &lt; = !=</code></p>
+</li>
+</ol>
+<h4 id="双中括号-1"><a href="#双中括号-1" class="headerlink" title="双中括号"></a>双中括号</h4><p>对单中括号的补充，双中括号还支持正则处理</p>
+<p>在双中括号中，不需要转移符号</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[[ 5 != 6 ]] &amp;&amp; echo yes &amp;&amp; echo no</span><br></pre></td></tr></table></figure>
+
+<p>用的最多的是单中括号，双中括号属于特殊场景的扩展语法</p>
+<p>并且 双中括号也支持<code>-eq -lt &lt; &gt; =</code></p>
+<h3 id="逻辑判断符号"><a href="#逻辑判断符号" class="headerlink" title="逻辑判断符号"></a>逻辑判断符号</h3><blockquote>
+<p>&amp;&amp;  -a  与运算</p>
+<p>||  -o  或运算</p>
+</blockquote>
+<p><img src="/../img/image-20230220191813933.png" alt="image-20230220191813933"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file1=/etc/init.d/network</span><br><span class="line">file2=/etc/hostname</span><br><span class="line">[ -f &quot;$file1&quot; -a -f &quot;file2&quot; ] &amp;&amp; echo yes || echo no # 不可以使用&amp;&amp; ||</span><br><span class="line">a=&quot;&quot;</span><br><span class="line">b=&quot;yuzhang&quot;</span><br><span class="line">[[ -n &quot;$a&quot; &amp;&amp; &quot;$a&quot; = &quot;$b&quot; ]] &amp;&amp; echo yes || echo no</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">输出no</span></span><br><span class="line">[[ -n &quot;$a&quot; &amp;&amp; ! &quot;$a&quot; = &quot;$b&quot; ]] &amp;&amp; echo yes || echo no</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">输出<span class="built_in">yes</span></span></span><br></pre></td></tr></table></figure>
+
+<p>参考表</p>
+<p><img src="/../img/image-20230220194310244.png" alt="image-20230220194310244"></p>
+<h3 id="if语句开发"><a href="#if语句开发" class="headerlink" title="if语句开发"></a>if语句开发</h3><p><strong>单分支if</strong></p>
+<blockquote>
+<p>if &lt;条件表达式&gt;</p>
+<p>​	then</p>
+<p>​		代码</p>
+<p>fi</p>
+<p>简化</p>
+<p>if &lt;条件表达式&gt;; then</p>
+<p>​	代码</p>
+<p>fi</p>
+</blockquote>
+<p><strong>双分支if</strong></p>
+<blockquote>
+<p>if &lt;条件表达式&gt;</p>
+<p>​	then</p>
+<p>​		代码1</p>
+<p>​			if &lt;条件表达式&gt;</p>
+<p>​				then</p>
+<p>​					代码2</p>
+<p>​			fi</p>
+<p>fi</p>
+</blockquote>
+<p><strong>if-else处理</strong></p>
+<blockquote>
+<p>if &lt;条件表达式&gt;</p>
+<p>​	then</p>
+<p>​		代码1</p>
+<p>else </p>
+<p>​	代码2</p>
+<p>fi</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux Shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux基础 Notes</title>
     <url>/2023/02/11/Linux/</url>
     <content><![CDATA[<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><p>学习自<a href="https://www.bilibili.com/video/BV1JY4y1v7wY/?p=1&vd_source=b13ef5c189bf6bbcf843aa22a48c4954">01 IT与互联网发展_哔哩哔哩_bilibili</a></p>
@@ -12,7 +231,7 @@
 </li>
 <li><p>安装xshell软件，进行远程连接<br> 首次安装xshell，且运行xshell软件后，会提示你建立一个会话，这个会话指的就是远程操作linux机器的终端，效果是在windows上面远程连接linux系统</p>
 </li>
-<li><p>使用ssh命令进行远程连接<br> &#x2F;# 解释<br> &#x2F;# ssh 是linux远程登陆的命令<br> &#x2F;# root 用户<br> &#x2F;# ssh 登陆的用户名@主机ip地址<br> ssh <a href="mailto:&#x72;&#111;&#x6f;&#116;&#64;&#49;&#57;&#x32;&#46;&#x31;&#x36;&#56;&#46;&#x38;&#x38;&#x2e;&#49;&#50;&#x38;">&#x72;&#111;&#x6f;&#116;&#64;&#49;&#57;&#x32;&#46;&#x31;&#x36;&#56;&#46;&#x38;&#x38;&#x2e;&#49;&#50;&#x38;</a> &#x2F;#这个就是远程连接的命令，xshell其实也是敲打的整条命令</p>
+<li><p>使用ssh命令进行远程连接<br> &#x2F;# 解释<br> &#x2F;# ssh 是linux远程登陆的命令<br> &#x2F;# root 用户<br> &#x2F;# ssh 登陆的用户名@主机ip地址<br> ssh <a href="mailto:&#114;&#x6f;&#111;&#116;&#x40;&#49;&#57;&#50;&#46;&#x31;&#x36;&#56;&#x2e;&#x38;&#x38;&#46;&#49;&#x32;&#x38;">&#114;&#x6f;&#111;&#116;&#x40;&#49;&#57;&#50;&#46;&#x31;&#x36;&#56;&#x2e;&#x38;&#x38;&#46;&#49;&#x32;&#x38;</a> &#x2F;#这个就是远程连接的命令，xshell其实也是敲打的整条命令</p>
 </li>
 </ol>
 </blockquote>
@@ -962,9 +1181,9 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux Shell Programming Notes</title>
-    <url>/2023/02/11/Linux_Shell/</url>
-    <content><![CDATA[<h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><h2 id="什么是shell"><a href="#什么是shell" class="headerlink" title="什么是shell"></a>什么是shell</h2><p><strong>shell的作用</strong></p>
+    <title>Linux Shell Basic Knowledge Notes</title>
+    <url>/2023/02/11/Shell%E5%8F%98%E9%87%8F%E6%A0%B8%E5%BF%83%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6/</url>
+    <content><![CDATA[<h1 id="Shell变量核心基础与进阶"><a href="#Shell变量核心基础与进阶" class="headerlink" title="Shell变量核心基础与进阶"></a>Shell变量核心基础与进阶</h1><h2 id="什么是shell"><a href="#什么是shell" class="headerlink" title="什么是shell"></a>什么是shell</h2><p><strong>shell的作用</strong></p>
 <ul>
 <li>解释执行用户输入的命令或者程序</li>
 <li>用户输入一条命令，shell就解释一条</li>
@@ -1195,8 +1414,33 @@
 <p>不创建子进程，执行后续命令，且执行完毕后自动exit</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">exec date</span><br></pre></td></tr></table></figure>
 
-<h3 id="shell字串的花式语法"><a href="#shell字串的花式语法" class="headerlink" title="shell字串的花式语法"></a>shell字串的花式语法</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量&#125;	<span class="comment"># 返回变量值</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;<span class="comment">#变量&#125;	# 返回变量长度，字符长度</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量:start&#125;	<span class="comment"># 返回变量Offset数值之后的字符</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量:start:length&#125;	<span class="comment"># 提取Offset之后的length限制的字符</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量<span class="comment">#word&#125;	# 从变量开头删除最短匹配的word子串</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量<span class="comment">##word&#125;	# 从变量开头删除最长匹配的word子串</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量%word&#125;	<span class="comment"># 从变量结尾删除最短匹配的word子串</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量%%word&#125;	<span class="comment"># 从变量结尾删除最长匹配的word子串</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量/pattern/string&#125;	<span class="comment"># 用string代替第一个匹配的pattern</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量//pattern/string&#125;	<span class="comment"># 用string代替所有匹配的pattern</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="shell字串的花式语法"><a href="#shell字串的花式语法" class="headerlink" title="shell字串的花式语法"></a>shell字串的花式语法</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量&#125;	<span class="comment"># 返回变量值</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;<span class="comment">#变量&#125;	# 返回变量长度，字符长度</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量:start&#125;	<span class="comment"># 返回变量start数值之后的字符（start是数字，且包含start）</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量:start:length&#125;	<span class="comment"># 提取start之后的length限制的字符</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量<span class="comment">#word&#125;	# 从变量开头删除最短匹配的word子串</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量<span class="comment">##word&#125;	# 从变量开头删除最长匹配的word子串</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量%word&#125;	<span class="comment"># 从变量结尾删除最短匹配的word子串</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量%%word&#125;	<span class="comment"># 从变量结尾删除最长匹配的word子串</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量/pattern/string&#125;	<span class="comment"># 用string代替第一个匹配的pattern</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;变量//pattern/string&#125;	<span class="comment"># 用string代替所有匹配的pattern</span></span></span><br></pre></td></tr></table></figure>
 
+<p><strong>字串的实际案例</strong></p>
+<p><em>Shell变量截取字符串通常有两种方式：</em></p>
+<ol>
+<li>从指定位置开始截取</li>
+<li>从指定字符（子字符串）开始截取</li>
+</ol>
+<p><strong>从指定位置开始截取</strong></p>
+<p>这种方式需要两个参数：除了指定起始位置，还需要截取长度，才能最终确定要截取的字符串。</p>
+<p>既然要制定起始位置，那么就涉及到计数方向的问题，到底是从字符串左边开始计数还是从字符串右边开始计数。答案是Shell同时支持两种计数方式。</p>
+<ol>
+<li><p>从字符串左边开始计数</p>
+<p>如果想从字符串的左边开始计数，那么截取字符串的具体格式如下：</p>
+<p><code>$&#123;string:start:length&#125;</code></p>
+<p>其中，<code>string</code>是要截取的字符串，<code>start</code>是起始位置（从左边开始，从0开始计数），<code>length</code>是要截取的长度（省略的话表示直到字符串的末尾）</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">name=&quot;yuzhang180&quot;</span><br><span class="line">echo $&#123;name&#125; #yuzhang180</span><br><span class="line">echo $&#123;#name&#125; #10</span><br><span class="line">echo $&#123;name:3&#125; #zhang180</span><br><span class="line">echo $&#123;name:3:5&#125; #zhang</span><br></pre></td></tr></table></figure>
+
+<p><strong>计算变量各种长度</strong></p>
+<ul>
+<li>多种统计长度的命令</li>
+</ul>
+<blockquote>
+<p>echo $</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -1206,21 +1450,77 @@
       </tags>
   </entry>
   <entry>
-    <title>啥也不会</title>
-    <url>/2023/02/02/%E5%95%A5%E4%B9%9F%E4%B8%8D%E4%BC%9A/</url>
-    <content><![CDATA[<h4 id="1-新建一篇文章"><a href="#1-新建一篇文章" class="headerlink" title="1. 新建一篇文章"></a>1. 新建一篇文章</h4><p>你可以执行以下命令来新建一篇文章</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-一个按钮"><a href="#2-一个按钮" class="headerlink" title="2. 一个按钮"></a>2. 一个按钮</h4><span id="more"></span>
-
-<h4 id="3-在博客中添加图片"><a href="#3-在博客中添加图片" class="headerlink" title="3. 在博客中添加图片"></a>3. 在博客中添加图片</h4><p><img src="/img/me.jpg" alt="PIG"></p>
+    <title>Clearblue配置</title>
+    <url>/2023/02/15/Clearblue%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="Clearblue-配置"><a href="#Clearblue-配置" class="headerlink" title="Clearblue 配置"></a>Clearblue 配置</h1><h2 id="Download-resources"><a href="#Download-resources" class="headerlink" title="Download resources"></a>Download resources</h2><p><a href="https://releases.llvm.org/download.html">https://releases.llvm.org/download.html</a></p>
+<p><img src="/../img/image-20230216141408026.png" alt="image-20230216141408026"></p>
+<h2 id="Move-resources-to-HOME"><a href="#Move-resources-to-HOME" class="headerlink" title="Move resources to $HOME"></a>Move resources to $HOME</h2><p>Use FileZila(Windows)</p>
+<h2 id="Build-LLVM-3-6-2"><a href="#Build-LLVM-3-6-2" class="headerlink" title="Build LLVM(3.6.2)"></a>Build LLVM(3.6.2)</h2><ul>
+<li>put clang src codes into llvm-3.6.2.src&#x2F;tools (clang and llvm version are all 3.6.2)</li>
+<li>There is a code irregularity in one place(&#x2F;home&#x2F;zhuyuzhang&#x2F;llvm-3.6.2.src&#x2F;include&#x2F;llvm&#x2F;IR&#x2F;Valuemap.h:104:31) use cmpulsory conversion to bool</li>
+<li>mkdir build &amp;&amp; cd build [&#x2F;home&#x2F;zhuyuzhang&#x2F;llvm-3.6.2.src&#x2F;build]</li>
+<li>cmake .. -DCMAKE_BUILD_TYPE&#x3D;Debug -DLLVM_ENABLE_RTTI&#x3D;ON</li>
+<li>make -j10</li>
+</ul>
+<h2 id="Build-Clearblue"><a href="#Build-Clearblue" class="headerlink" title="Build Clearblue"></a>Build Clearblue</h2><ul>
+<li>cd clearblue</li>
+<li>git submodule update –init –recursive</li>
+<li>mkdir build &amp;&amp; cd build</li>
+<li>cmake ..&#x2F; -DLLVM_BUILD_PATH&#x3D;&#x2F;home&#x2F;zhuyuzhang&#x2F;llvm-3.6.2.src&#x2F;build -DLLVM_BUILD_MAIN_SRC_DIR&#x3D;&#x2F;home&#x2F;zhuyuzhang&#x2F;llvm-3.6.2.src</li>
+<li>make -j120</li>
+</ul>
+<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><ul>
+<li>scl enable devtoolset-8 bash(update gcc)</li>
+</ul>
 ]]></content>
       <categories>
-        <category>web前端</category>
+        <category>Linux</category>
       </categories>
       <tags>
-        <tag>博客</tag>
-        <tag>hexo</tag>
+        <tag>Clearblue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LLVM learning notes1: The Architecture of Open Source Applications: LLVM</title>
+    <url>/2023/03/14/LLVM-learning-notes1-The-Architecture-of-Open-Source-Applications-LLVM/</url>
+    <content><![CDATA[<p><a href="http://www.aosabook.org/en/llvm.html">Resource</a></p>
+<h1 id="Classical-Complier-Design"><a href="#Classical-Complier-Design" class="headerlink" title="Classical Complier Design"></a>Classical Complier Design</h1><p><img src="/../img/image-20230314215732944.png" alt="image-20230314215732944"></p>
+<p><strong>The front end</strong> parses source code, checking it for errors, and builds a language-specific Abstract Syntax Tree (AST) to represent the input code.</p>
+<p><strong>The optimizer</strong>  is responsible for doing a broad variety of transformations to try to improve the code’s running time. It is usually more or less independent of language and target.</p>
+<p><strong>The back end</strong> (also known as the code generator) then maps the code onto the target instruction set. In addition to making <em>correct</em> code, it is responsible for generating <em>good</em> code that takes advantage of unusual features of the supported architecture.</p>
+<h1 id="LLVM’s-Code-Representation-LLVM-IR"><a href="#LLVM’s-Code-Representation-LLVM-IR" class="headerlink" title="LLVM’s Code Representation: LLVM IR"></a>LLVM’s Code Representation: LLVM IR</h1><p>The most important aspect of its design is the LLVM Intermediate Representation (IR), which is the form it uses to represent code in the compiler. LLVM IR is designed to host mid-level analyses and transformations that you find in the optimizer section of a compiler. It was designed with many specific goals in mind, including supporting lightweight runtime optimizations, cross-function&#x2F;interprocedural optimizations, whole program analysis, and aggressive restructuring transformations, etc. The most important aspect of it, though, is that it is itself defined as a first class language with well-defined semantics.</p>
+<h1 id="Writing-an-LLVM-IR-Optimization"><a href="#Writing-an-LLVM-IR-Optimization" class="headerlink" title="Writing an LLVM IR Optimization"></a>Writing an LLVM IR Optimization</h1><p>That said, most optimizations follow a simple three-part structure:</p>
+<ul>
+<li>Look for a pattern to be transformed.</li>
+<li>Verify that the transformation is safe&#x2F;correct for the matched instance.</li>
+<li>Do the transformation, updating the code.</li>
+</ul>
+<p>The caller of this function (<code>SimplifyInstruction</code>) is a dispatcher that does a switch on the instruction opcode, dispatching to the per-opcode helper functions. It is called from various optimizations. A simple driver looks like this:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (BasicBlock::iterator I = BB-&gt;<span class="built_in">begin</span>(), E = BB-&gt;<span class="built_in">end</span>(); I != E; ++I)</span><br><span class="line">  <span class="keyword">if</span> (Value *V = <span class="built_in">SimplifyInstruction</span>(I))</span><br><span class="line">    I-&gt;<span class="built_in">replaceAllUsesWith</span>(V);</span><br></pre></td></tr></table></figure>
+
+<p>This code simply loops over each instruction in a block, checking to see if any of them simplify. If so (because <code>SimplifyInstruction</code> returns non-null), it uses the <code>replaceAllUsesWith</code> method to update anything in the code using the simplifiable operation with the simpler form.</p>
+<h1 id="LLVM’s-Implementation-of-Three-Phase-Design"><a href="#LLVM’s-Implementation-of-Three-Phase-Design" class="headerlink" title="LLVM’s Implementation of Three-Phase Design"></a>LLVM’s Implementation of Three-Phase Design</h1><h2 id="LLVM-IR-is-a-Complete-Code-Representation"><a href="#LLVM-IR-is-a-Complete-Code-Representation" class="headerlink" title="LLVM IR is a Complete Code Representation"></a>LLVM IR is a Complete Code Representation</h2><p>LLVM IR is both well specified and the <em>only</em> interface to the optimizer. This property means that all you need to know to write a front end for LLVM is what LLVM IR is, how it works, and the invariants it expects. Since LLVM IR has a first-class textual form, it is both possible and reasonable to build a front end that outputs LLVM IR as text, then uses Unix pipes to send it through the optimizer sequence and code generator of your choice.</p>
+<h2 id="LLVM-is-a-Collection-of-Libraries"><a href="#LLVM-is-a-Collection-of-Libraries" class="headerlink" title="LLVM is a Collection of Libraries"></a>LLVM is a Collection of Libraries</h2><p>LLVM optimizer provides dozens of different passes, each of which are written in a similar style. These passes are compiled into one or more <code>.o</code> files, which are then built into a series of archive libraries (<code>.a</code> files on Unix systems). </p>
+<p><img src="/../img/image-20230326172542361.png" alt="image-20230326172542361"></p>
+<p>In our example above, since there is a reference to PassA and PassB, they will get linked in. Since PassB uses PassD to do some analysis, PassD gets linked in. However, since PassC (and dozens of other optimizations) aren’t used, its code isn’t linked into the image processing application.</p>
+<p>This is where the power of the library-based design of LLVM comes into play. This straightforward design approach allows LLVM to provide a vast amount of capability, some of which may only be useful to specific audiences, without punishing clients of the libraries that just want to do simple things. In contrast, traditional compiler optimizers are built as a tightly interconnected mass of code, which is much more difficult to subset, reason about, and come up to speed on. With LLVM you can understand individual optimizers without knowing how the whole system fits together.</p>
+<p>This library-based design is also the reason why so many people misunderstand what LLVM is all about: the LLVM libraries have many capabilities, but they don’t actually <em>do</em> anything by themselves. It is up to the designer of the client of the libraries (e.g., the Clang C compiler) to decide how to put the pieces to best use. This careful layering, factoring, and focus on subset-ability is also why the LLVM optimizer can be used for such a broad range of different applications in different contexts. Also, just because LLVM provides JIT compilation capabilities, it doesn’t mean that every client uses it.</p>
+<h1 id="Design-of-the-Retargetable-LLVM-Code-Generator"><a href="#Design-of-the-Retargetable-LLVM-Code-Generator" class="headerlink" title="Design of the Retargetable LLVM Code Generator"></a>Design of the Retargetable LLVM Code Generator</h1><p>Similar to the approach in the optimizer, LLVM’s code generator splits the code generation problem into individual passes—instruction selection, register allocation, scheduling, code layout optimization, and assembly emission—and provides many builtin passes that are run by default.</p>
+<h2 id="LLVM-Target-Description-Files"><a href="#LLVM-Target-Description-Files" class="headerlink" title="LLVM Target Description Files"></a>LLVM Target Description Files</h2><p>The “mix and match” approach allows target authors to choose what makes sense for their architecture and permits a large amount of code reuse across different targets. This brings up another challenge: each shared component needs to be able to reason about target specific properties in a generic way. For example, a shared register allocator needs to know the register file of each target and the constraints that exist between instructions and their register operands. LLVM’s solution to this is for each target to provide a target description in a declarative domain-specific language (a set of <code>.td</code> files) processed by the tblgen tool. The (simplified) build process for the x86 target is shown in <a href="http://www.aosabook.org/en/llvm.html#fig.llvm.x86">Figure 11.5</a>.</p>
+<p><img src="/../img/image-20230326180400432.png" alt="image-20230326180400432"></p>
+<h1 id="Interesting-Capabilities-Provided-by-a-Modular-Design"><a href="#Interesting-Capabilities-Provided-by-a-Modular-Design" class="headerlink" title="Interesting Capabilities Provided by a Modular Design"></a>Interesting Capabilities Provided by a Modular Design</h1><h2 id="Choosing-When-and-Where-Each-Phase-Runs"><a href="#Choosing-When-and-Where-Each-Phase-Runs" class="headerlink" title="Choosing When and Where Each Phase Runs"></a>Choosing When and Where Each Phase Runs</h2><p>As mentioned earlier, LLVM IR can be efficiently (de)serialized to&#x2F;from a binary format known as LLVM bitcode. Since LLVM IR is self-contained, and serialization is a lossless process, we can do part of compilation, save our progress to disk, then continue work at some point in the future. This feature provides a number of interesting capabilities including support for link-time and install-time optimization, both of which delay code generation from “compile time”.</p>
+<p>Link-Time Optimization (LTO) addresses the problem where the compiler traditionally only sees one translation unit (e.g., a <code>.c</code> file with all its headers) at a time and therefore cannot do optimizations (like inlining) across file boundaries. LLVM compilers like Clang support this with the <code>-flto</code> or <code>-O4</code> command line option. This option instructs the compiler to emit LLVM bitcode to the <code>.o</code>file instead of writing out a native object file, and delays code generation to link time, shown in <a href="http://www.aosabook.org/en/llvm.html#fig.llvm.lto">Figure 11.6</a>.</p>
+<p><img src="/../img/image-20230326200108501.png" alt="image-20230326200108501"></p>
+<h2 id="Unit-Testing-the-Optimizer"><a href="#Unit-Testing-the-Optimizer" class="headerlink" title="Unit Testing the Optimizer"></a>Unit Testing the Optimizer</h2><p>By using the textual form of LLVM IR with the modular optimizer, the LLVM test suite has highly focused regression tests that can load LLVM IR from disk, run it through exactly one optimization pass, and verify the expected behavior. Beyond crashing, a more complicated behavioral test wants to verify that an optimization is actually performed. Here is a simple test case that checks to see that the constant propagation pass is working with add instructions:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; RUN: opt &lt; %s -constprop -S | FileCheck %s</span><br><span class="line">define i32 @test() &#123;</span><br><span class="line">  %A = add i32 4, 5</span><br><span class="line">  ret i32 %A</span><br><span class="line">  ; CHECK: @test()</span><br><span class="line">  ; CHECK: ret i32 9</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The <code>RUN</code> line specifies the command to execute: in this case, the <code>opt</code> and <code>FileCheck</code> command line tools. The <code>opt</code> program is a simple wrapper around the LLVM pass manager, which links in all the standard passes (and can dynamically load plugins containing other passes) and exposes them through to the command line. The <code>FileCheck</code> tool verifies that its standard input matches a series of <code>CHECK</code> directives. In this case, this simple test is verifying that the <code>constprop</code> pass is folding the <code>add</code> of 4 and 5 into 9.</p>
+<p>While this might seem like a really trivial example, this is very difficult to test by writing .c files: front ends often do constant folding as they parse, so it is very difficult and fragile to write code that makes its way downstream to a constant folding optimization pass. Because we can load LLVM IR as text and send it through the specific optimization pass we’re interested in, then dump out the result as another text file, it is really straightforward to test exactly what we want, both for regression and feature tests.</p>
+<h2 id="Automatic-Test-Case-Reduction-with-BugPoint"><a href="#Automatic-Test-Case-Reduction-with-BugPoint" class="headerlink" title="Automatic Test Case Reduction with BugPoint"></a>Automatic Test Case Reduction with BugPoint</h2><p>The LLVM BugPoint tool<a href="http://www.aosabook.org/en/llvm.html#footnote-7">7</a> uses the IR serialization and modular design of LLVM to automate this process. For example, given an input <code>.ll</code> or <code>.bc</code> file along with a list of optimization passes that causes an optimizer crash, BugPoint reduces the input to a small test case and determines which optimizer is at fault. It then outputs the reduced test case and the <code>opt</code> command used to reproduce the failure. It finds this by using techniques similar to “delta debugging” to reduce the input and the optimizer pass list. Because it knows the structure of LLVM IR, BugPoint does not waste time generating invalid IR to input to the optimizer, unlike the standard “delta” command line tool.</p>
+<p>In the more complex case of a miscompilation, you can specify the input, code generator information, the command line to pass to the executable, and a reference output. BugPoint will first determine if the problem is due to an optimizer or a code generator, and will then repeatedly partition the test case into two pieces: one that is sent into the “known good” component and one that is sent into the “known buggy” component. By iteratively moving more and more code out of the partition that is sent into the known buggy code generator, it reduces the test case.</p>
+<h1 id="Retrospective-and-Future-Directions"><a href="#Retrospective-and-Future-Directions" class="headerlink" title="Retrospective and Future Directions"></a>Retrospective and Future Directions</h1>]]></content>
+      <tags>
+        <tag>LLVM</tag>
       </tags>
   </entry>
 </search>
