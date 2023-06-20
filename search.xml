@@ -6,6 +6,8 @@
     <content><![CDATA[<h1 id="Shell脚本开发"><a href="#Shell脚本开发" class="headerlink" title="Shell脚本开发"></a>Shell脚本开发</h1><p><strong>注意</strong></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">() 和 `` 效果是一样的，在括号中执行命令，且拿到命令的执行结果</span></span><br></pre></td></tr></table></figure>
 
+<span id="more"></span>
+
 <h1 id="Shell数值计算"><a href="#Shell数值计算" class="headerlink" title="Shell数值计算"></a>Shell数值计算</h1><p><strong>运算符号，Linux用于计算的命令</strong></p>
 <p><img src="/../img/image-20230215144600915.png" alt="image-20230215144600915"></p>
 <p><img src="/../img/image-20230215144701841.png" alt="image-20230215144701841"></p>
@@ -1454,6 +1456,8 @@
     <url>/2023/02/15/Clearblue%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h1 id="Clearblue-配置"><a href="#Clearblue-配置" class="headerlink" title="Clearblue 配置"></a>Clearblue 配置</h1><h2 id="Download-resources"><a href="#Download-resources" class="headerlink" title="Download resources"></a>Download resources</h2><p><a href="https://releases.llvm.org/download.html">https://releases.llvm.org/download.html</a></p>
 <p><img src="/../img/image-20230216141408026.png" alt="image-20230216141408026"></p>
+<span id="more"></span>
+
 <h2 id="Move-resources-to-HOME"><a href="#Move-resources-to-HOME" class="headerlink" title="Move resources to $HOME"></a>Move resources to $HOME</h2><p>Use FileZila(Windows)</p>
 <h2 id="Build-LLVM-3-6-2"><a href="#Build-LLVM-3-6-2" class="headerlink" title="Build LLVM(3.6.2)"></a>Build LLVM(3.6.2)</h2><ul>
 <li>put clang src codes into llvm-3.6.2.src&#x2F;tools (clang and llvm version are all 3.6.2)</li>
@@ -1488,6 +1492,8 @@
 <p><strong>The front end</strong> parses source code, checking it for errors, and builds a language-specific Abstract Syntax Tree (AST) to represent the input code.</p>
 <p><strong>The optimizer</strong>  is responsible for doing a broad variety of transformations to try to improve the code’s running time. It is usually more or less independent of language and target.</p>
 <p><strong>The back end</strong> (also known as the code generator) then maps the code onto the target instruction set. In addition to making <em>correct</em> code, it is responsible for generating <em>good</em> code that takes advantage of unusual features of the supported architecture.</p>
+<span id="more"></span>
+
 <h1 id="LLVM’s-Code-Representation-LLVM-IR"><a href="#LLVM’s-Code-Representation-LLVM-IR" class="headerlink" title="LLVM’s Code Representation: LLVM IR"></a>LLVM’s Code Representation: LLVM IR</h1><p>The most important aspect of its design is the LLVM Intermediate Representation (IR), which is the form it uses to represent code in the compiler. LLVM IR is designed to host mid-level analyses and transformations that you find in the optimizer section of a compiler. It was designed with many specific goals in mind, including supporting lightweight runtime optimizations, cross-function&#x2F;interprocedural optimizations, whole program analysis, and aggressive restructuring transformations, etc. The most important aspect of it, though, is that it is itself defined as a first class language with well-defined semantics.</p>
 <h1 id="Writing-an-LLVM-IR-Optimization"><a href="#Writing-an-LLVM-IR-Optimization" class="headerlink" title="Writing an LLVM IR Optimization"></a>Writing an LLVM IR Optimization</h1><p>That said, most optimizations follow a simple three-part structure:</p>
 <ul>
