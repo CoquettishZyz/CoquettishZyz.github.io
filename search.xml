@@ -1533,6 +1533,8 @@
     <title>Tai-e-A1</title>
     <url>/2023/06/21/Tai-e-A1/</url>
     <content><![CDATA[<h1 id="活跃变量分析和迭代求解器"><a href="#活跃变量分析和迭代求解器" class="headerlink" title="活跃变量分析和迭代求解器"></a>活跃变量分析和迭代求解器</h1><p>用来记录思维变化过程，思考误区，代码理解。</p>
+<span id="more"></span>
+
 <h2 id="实现活跃变量分析"><a href="#实现活跃变量分析" class="headerlink" title="实现活跃变量分析"></a>实现活跃变量分析</h2><h3 id="newBoundaryFact"><a href="#newBoundaryFact" class="headerlink" title="newBoundaryFact"></a>newBoundaryFact</h3><p><font color=red><strong>Class SetFact ：</strong> </font>用于代表在程序中某点的活跃变量（直到Exit）</p>
 <p><font color=red><strong>Class Var ：</strong> </font>用于代表变量</p>
 <p><font color=green><strong>思考误区 ：</strong> </font>对于某点的SetFact并不是需要存储所有变量，然后看变量是否含有某特征表示是否活跃。SetFact只需要存储活跃的变量即可。</p>
