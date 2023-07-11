@@ -1571,6 +1571,8 @@
     <url>/2023/06/29/Tai-e-A2/</url>
     <content><![CDATA[<h1 id="常量传播和-Worklist-求解器"><a href="#常量传播和-Worklist-求解器" class="headerlink" title="常量传播和 Worklist 求解器"></a>常量传播和 Worklist 求解器</h1><p>PASCAL OJ太痛苦了，有很多奇怪的判断点啊，经过和答案比对，总算找到了问题</p>
 <p><img src="/../img/image-20230705204801604.png" alt="image-20230705204801604"></p>
+<span id="more"></span>
+
 <h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><ol>
 <li>虽然已经注意到了DIV操作和REM操作中<code>operator2</code>值为<code>0</code>情况，但是写代码的时候我的判断是<code>operator1</code>和<code>operator2</code>均为<code>constant</code>的情况，而此时不应该考虑<code>operator1</code>只要<code>operator2</code>为<code>0</code>在这两种操作符下，就应该<code>return Value.getUNDEF()</code>。</li>
 <li><code>newBoundaryFact</code>函数初始化边界条件时，如果<code>var</code>不能赋予<code>int</code>类型值就不应该初始化！！但是！！自己跑的testcase不初始化就会跑不过。</li>
